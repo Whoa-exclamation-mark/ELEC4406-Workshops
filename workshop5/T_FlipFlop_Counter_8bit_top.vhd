@@ -3,7 +3,6 @@ use ieee.std_logic_1164.all;
 
 
 entity T_FlipFlop_Counter_8bit_top is
-  
        port(  	ENABLE:	in std_logic;
 					CLOCK:	in std_logic := '0';
 	            HEX0:		out STD_LOGIC_VECTOR(6 downto 0);
@@ -15,14 +14,14 @@ entity T_FlipFlop_Counter_8bit_top is
 		 
 architecture T_FlipFlop_Counter_8bit_top_rtl of T_FlipFlop_Counter_8bit_top is	
 
-	component T_FlipFlop_Counter_8bit 
+	component T_FlipFlop_Counter 
 		port(  	ENABLE:	in std_logic;
 					CLK:		in std_logic;
 	            OUTPUT:	out STD_LOGIC_VECTOR(7 downto 0);
 					CLEAR: 	in std_logic);
 	end component;
 	
-	component Clk_divider_to_1Hz
+	component Clk_divider
 		Port ( 
 	       clk_in : in STD_LOGIC; 
 	        reset : in STD_LOGIC; 
@@ -41,11 +40,11 @@ architecture T_FlipFlop_Counter_8bit_top_rtl of T_FlipFlop_Counter_8bit_top is
 	
 begin
 	
-	Base_Clock: Clk_divider_to_1Hz PORT MAP (clk_in => CLOCK, reset => '0', clk_out => CLK); 
+	Base_Clock: Clk_divider GENERIC MAP (Freq_in => , new_frequency => 4) PORT MAP (clk_in => CLOCK, reset => '0', clk_out => CLK); 
 	
 	HEARTBEAT <= CLK;
 	
-	T_FlipFlop_Counter_8bit_init: T_FlipFlop_Counter_8bit PORT MAP (ENABLE => ENABLE, CLK => CLK, OUTPUT => OUTPUT, CLEAR => NOT CLEAR);
+	T_FlipFlop_Counter_8bit_init: T_FlipFlop_Counter PORT MAP (ENABLE => ENABLE, CLK => CLK, OUTPUT => OUTPUT, CLEAR => NOT CLEAR);
 	
 	seven_segment_decoder_1: seven_segment_decoder PORT MAP (SW => OUTPUT(3 downto 0), HEX => HEX0);
 	

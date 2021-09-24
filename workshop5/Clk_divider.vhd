@@ -2,21 +2,22 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
   
   
-entity Clk_divider_to_1Hz is
-  generic(Freq_in : integer := 50000000); -- 50MHz clock on DE-10 Lite FPGA board
+entity Clk_divider is
+  generic(Freq_in : integer := 50000000;-- 50MHz clock on DE-10 Lite FPGA board
+			 new_frequency : integer := 1); 
 	 Port ( 
 	       clk_in : in STD_LOGIC; 
 	        reset : in STD_LOGIC; 
 			 clk_out: out STD_LOGIC
 			  
         );
-end Clk_divider_to_1Hz;
+end Clk_divider;
 	
 	
-architecture Behav of Clk_divider_to_1Hz is 
+architecture Behav of Clk_divider is 
 	    signal temp: STD_LOGIC := '0';
      signal counter : integer := 0; 
-		 constant N : integer:=512;  
+		 constant N : integer:= new_frequency*2;  
 begin 
 	frequency_divider: process (reset, clk_in) 
 		begin 
