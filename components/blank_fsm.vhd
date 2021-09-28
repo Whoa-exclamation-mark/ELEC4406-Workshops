@@ -9,7 +9,7 @@ entity blank_fsm is
 			RESET: IN STD_LOGIC;
 			Z1, Z2 : IN STD_LOGIC;
 			Y1, Y2: OUT STD_LOGIC;
-			state_out : out STD_LOGIC(1 downto 0)
+			state_out : out STD_LOGIC_VECTOR(1 downto 0)
        );
 end blank_fsm;
 	
@@ -47,11 +47,11 @@ begin
 			when state1 =>
 				-- moore
 				Y2 <= '1';
-				if(X1 = '0') then
+				if(Z1 = '0') then
 					NS <= state3;
 					-- mealy
 					Y1 <= '1';
-				elsif (X2 = '1') then
+				elsif (Z2 = '1') then
 					NS <= state2;
 					Y1 <= '0';
 				else
