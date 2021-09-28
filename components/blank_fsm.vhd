@@ -11,7 +11,7 @@ entity blank_fsm is
 			Y1, Y2: OUT STD_LOGIC;
 			state_out : out STD_LOGIC(1 downto 0)
        );
-end blank_entity;
+end blank_fsm;
 	
 	
 architecture blank_fsm_rtl of blank_fsm is 
